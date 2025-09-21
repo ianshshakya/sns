@@ -310,7 +310,7 @@ const Navigation = () => {
         </div>
 
         {/* Mobile Content Panel (shown at bottom on mobile) */}
-        <div className={`d-lg-none bg-light p-3 border-top ${isSidebarOpen ? 'd-block' : 'd-none'}`} style={{ maxHeight: "60vh", overflowY: "auto" }}>
+        <div className={`d-lg-none bg-light p-3 border-top ${isSidebarOpen ? 'd-block' : 'd-none'}`} style={{ height: "50vh", overflowY: "auto" }}>
           <div className="text-center mb-3">
             <h4 className="fw-bold" style={{fontFamily: '"Gill Sans Extrabold", sans-serif', color: "#2c3e50"}}>
               Start A Journey

@@ -115,7 +115,7 @@ const Home = () => {
       {/* Main Content Area */}
       <div className="d-flex flex-column flex-grow-1 position-relative overflow-hidden">
         {/* Map Section - Takes full height on mobile, part of screen on desktop */}
-        <div className="flex-grow-1 position-relative">
+        <div className="flex-grow-1 position-relative ">
           <MapComponent 
             ref={mapRef} 
             onLocationChange={handleLocationChange} 
@@ -129,7 +129,7 @@ const Home = () => {
         </div>
 
         {/* Mobile Content Panel (shown at bottom on mobile) */}
-        <div className={`d-lg-none bg-light p-3 border-top ${isSidebarOpen ? 'd-block' : 'd-none'}`} style={{ maxHeight: "50vh", overflowY: "auto" }}>
+        <div className={`d-lg-none bg-light p-3 border-top ${isSidebarOpen ? 'd-block' : 'd-none'}`} style={{ height: "50vh", overflowY: "auto" }}>
           <div className="text-center mb-3">
             <h5 className="mb-1" style={{"fontFamily":'"Gill Sans Extrabold", sans-serif'}}>Welcome to</h5>
             <h4 className="fw-bold" style={{"fontFamily":'"Gill Sans Extrabold", sans-serif', color: "#2c3e50"}}>
