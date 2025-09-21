@@ -17,7 +17,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
 });
 
-const colors = ["#ff0000", "#0000ff", "#00ff00", "#ff9900", "#9900ff"]; // Different colors for routes
+const colors = ["#ff0000", "#0000ff", "#00ff00", "#ff9900", "#9900ff"];
 
 // Component to handle map recentering
 function RecenterMap({ center }) {
@@ -38,7 +38,7 @@ const Navigation = () => {
   const [destCoords, setDestCoords] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [currentCenter, setCurrentCenter] = useState([28.6139, 77.209]); // Default Delhi
+  const [currentCenter, setCurrentCenter] = useState([28.6139, 77.209]);
 
   const fetchRoutes = async () => {
     if (!destination) {
@@ -85,7 +85,6 @@ const Navigation = () => {
   };
 
   const handleRecenter = () => {
-    // Recenter to show both start and destination or just destination
     if (startCoords && destCoords) {
       const lat = (startCoords[0] + destCoords[0]) / 2;
       const lng = (startCoords[1] + destCoords[1]) / 2;
@@ -93,7 +92,7 @@ const Navigation = () => {
     } else if (destCoords) {
       setCurrentCenter(destCoords);
     } else {
-      setCurrentCenter([28.6139, 77.209]); // Default to Delhi
+      setCurrentCenter([28.6139, 77.209]);
     }
   };
 
@@ -184,7 +183,7 @@ const Navigation = () => {
           </div>
 
           {/* Routes List */}
-          <div className="flex-grow-1 overflow-auto">
+          <div className="flex-grow-1" style={{ overflowY: "auto" }}>
             <h4 className="mb-3">Available Routes</h4>
             
             {routes.length === 0 ? (
@@ -224,7 +223,7 @@ const Navigation = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="d-flex flex-column flex-grow-1 position-relative overflow-hidden">
+      <div className="d-flex flex-column flex-grow-1 position-relative">
         {/* Map Section - Takes full height */}
         <div className="flex-grow-1 position-relative">
           <MapContainer
@@ -261,7 +260,6 @@ const Navigation = () => {
             {routes.map((r, i) => {
               let coords = r.coords || [];
               if (r.polyline) {
-                // Decode Google polyline
                 const polyline = require("@mapbox/polyline");
                 coords = polyline.decode(r.polyline).map(coord => [coord[0], coord[1]]);
               }
@@ -310,7 +308,7 @@ const Navigation = () => {
         </div>
 
         {/* Mobile Content Panel (shown at bottom on mobile) */}
-        <div className={`d-lg-none bg-light p-3 border-top ${isSidebarOpen ? 'd-block' : 'd-none'}`} style={{ height: "50vh", overflowY: "auto" }}>
+        <div className={`d-lg-none bg-light p-3 border-top ${isSidebarOpen ? 'd-block' : 'd-none'}`} style={{ maxHeight: "60vh", overflowY: "auto" }}>
           <div className="text-center mb-3">
             <h4 className="fw-bold" style={{fontFamily: '"Gill Sans Extrabold", sans-serif', color: "#2c3e50"}}>
               Start A Journey
@@ -373,7 +371,7 @@ const Navigation = () => {
           </div>
 
           {/* Routes List */}
-          <div className="overflow-auto" style={{ maxHeight: "200px" }}>
+          <div style={{ maxHeight: "200px", overflowY: "auto" }}>
             <h5 className="mb-2">Available Routes</h5>
             
             {routes.length === 0 ? (
@@ -416,7 +414,7 @@ const Navigation = () => {
       <style>
         {`
           body, html, #root {
-            overflow: hidden;
+            height: 100%;
           }
           
           .route-card {
