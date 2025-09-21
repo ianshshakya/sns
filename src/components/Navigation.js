@@ -25,6 +25,7 @@ const Navigation = () => {
   const [startCoords, setStartCoords] = useState(null);
   const [destCoords, setDestCoords] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const fetchRoutes = async () => {
     if (!destination) {
@@ -57,14 +58,45 @@ const Navigation = () => {
     }
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <div className="d-flex vh-100 vw-100 overflow-hidden">
+      {/* Sidebar Toggle Button (Mobile) */}
+      <button 
+        className="btn btn-dark d-lg-none position-fixed"
+        onClick={toggleSidebar}
+        style={{
+          zIndex: 1000,
+          top: "10px",
+          left: "10px",
+          width: "40px",
+          height: "40px",
+          borderRadius: "50%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+      >
+        <i className={`fa-solid ${isSidebarOpen ? "fa-xmark" : "fa-bars"}`}></i>
+      </button>
+
       {/* Sidebar */}
-      <div className="d-flex flex-column bg-light" style={{ width: "350px", minWidth: "350px", overflowY: "auto" }}>
+      <div 
+        className={`d-flex flex-column bg-light ${isSidebarOpen ? 'd-flex' : 'd-none'} d-lg-flex`}
+        style={{ 
+          width: "100%", 
+          maxWidth: "350px",
+          zIndex: 999,
+          boxShadow: "2px 0 10px rgba(0,0,0,0.1)"
+        }}
+      >
         <div className="d-flex flex-column p-3 h-100">
           {/* Header */}
           <div className="text-center mb-4 mt-3">
-            <h2 className="fw-bold" style={{fontFamily: '"Gill Sans Extrabold", sans-serif', color: "#2c3e50"}}>
+            <h2 className="fw-bold" style={{fontFamily: '"Gill Sans Extrabold", sans-serif', color: "#2c3e50", fontSize: "1.5rem"}}>
               Start A Journey
             </h2>
           </div>
@@ -134,11 +166,11 @@ const Navigation = () => {
                   >
                     <div className="card-body py-2">
                       <div className="d-flex justify-content-between align-items-start">
-                        <h6 className="card-title mb-1">
+                        <h6 className="card-title mb-1" style={{fontSize: "0.9rem"}}>
                           <span className="badge bg-secondary me-2">{i + 1}</span>
                           {r.summary}
                         </h6>
-                        <span className="badge rounded-pill" style={{backgroundColor: colors[i % colors.length]}}>
+                        <span className="badge rounded-pill" style={{backgroundColor: colors[i % colors.length], fontSize: "0.7rem"}}>
                           {r.distance}
                         </span>
                       </div>
@@ -209,12 +241,21 @@ const Navigation = () => {
         </MapContainer>
         
         {/* Map Controls Info */}
-        <div className="position-absolute bottom-0 end-0 m-3 bg-white p-2 rounded shadow-sm small">
+        <div className="position-absolute bottom-0 end-0 m-3 bg-white p-2 rounded shadow-sm small d-none d-md-block">
           <div className="d-flex align-items-center">
             <i className="fa-solid fa-circle-info text-primary me-1"></i>
             <span>Use ctrl + scroll to zoom map</span>
           </div>
         </div>
+        
+        {/* Overlay when sidebar is open on mobile */}
+        {isSidebarOpen && window.innerWidth < 992 && (
+          <div 
+            className="position-absolute w-100 h-100 bg-dark bg-opacity-50"
+            onClick={() => setIsSidebarOpen(false)}
+            style={{ zIndex: 998 }}
+          ></div>
+        )}
       </div>
 
       {/* Custom CSS */}
@@ -239,6 +280,32 @@ const Navigation = () => {
           
           .btn {
             border-radius: 8px;
+          }
+          
+          /* Responsive adjustments */
+          @media (max-width: 991.98px) {
+            .sidebar {
+              position: fixed;
+              left: 0;
+              top: 0;
+              height: 100%;
+              transform: translateX(${isSidebarOpen ? '0' : '-100%'});
+              transition: transform 0.3s ease;
+            }
+          }
+          
+          @media (max-width: 575.98px) {
+            .card-body {
+              padding: 0.75rem;
+            }
+            
+            h2 {
+              font-size: 1.3rem !important;
+            }
+            
+            .badge {
+              font-size: 0.65rem !important;
+            }
           }
         `}
       </style>
