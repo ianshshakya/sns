@@ -49,7 +49,7 @@ const Home = () => {
   };
 
   return (
-    <div className="d-flex flex-column flex-lg-row vh-100 vw-100 overflow-hidden">
+    <div className="d-flex flex-column flex-lg-row vh-100 vw-100">
       {/* Sidebar Toggle Button (Mobile) */}
       <button 
         className="btn btn-dark d-lg-none position-fixed"
