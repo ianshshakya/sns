@@ -13,7 +13,7 @@ export default function TrafficDashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/data");
+        const response = await fetch("https://sns-backend2.onrender.com/data");
         const data = await response.json();
         setTrafficData(data);
       } catch (error) {
@@ -57,7 +57,7 @@ export default function TrafficDashboard() {
               </div>
               <div className="card-body p-0 position-relative flex-grow-1 d-flex">
                 <img
-                  src="http://localhost:8000/video"
+                  src="https://sns-backend2.onrender.com/video"
                   alt="Traffic Feed"
                   className="img-fluid w-100 h-100"
                   style={{ objectFit: "cover" }}

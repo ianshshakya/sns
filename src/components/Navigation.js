@@ -34,7 +34,7 @@ const Navigation = () => {
 
     setIsLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/get_routes", {
+      const res = await fetch("https://sns-backend1-1.onrender.com/get_routes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ start, destination }),
